@@ -29,7 +29,7 @@ RUN \
 	pip install python-dateutil && \ 
         pip install deluge-client && \
 	pip install qtfaststart && \
-        pip install gevent && \
+        
 	git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /sickbeard_mp4_automator/ && \
 	touch /sickbeard_mp4_automator/info.log && \
 	cp /sickbeard_mp4_automator/autoProcess.ini.sample /sickbeard_mp4_automator/autoProcess.ini && \
