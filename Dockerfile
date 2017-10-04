@@ -32,7 +32,7 @@ RUN \
 	git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /sickbeard_mp4_automator/ && \
 	touch /sickbeard_mp4_automator/info.log && \
 	cp /sickbeard_mp4_automator/autoProcess.ini.sample /sickbeard_mp4_automator/autoProcess.ini && \
-	chmod a+rwx -R /sickbeard_mp4_automator && \
+	chmod 777 -R /sickbeard_mp4_automator/ && \
 	ln -s /downloads /data
 
 VOLUME /sickbeard_mp4_automator
