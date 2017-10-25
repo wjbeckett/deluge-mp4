@@ -1,38 +1,42 @@
-FROM binhex/arch-delugevpn
+FROM linuxserver/deluge
 MAINTAINER wjbeckett
 
 # additional files
 ##################
 
-RUN \
-	pacman -S --noconfirm \
-  	ffmpeg \
-  	git \
-  	python-pip \
-  	python \
-  	libxslt \
-  	libfdk-aac \
-  	cmake \
-  	make \
-  	gcc \
-  	qt5-base \
-  	qt5-tools && \
-  	pip install --upgrade pip && \
-  	pip install requests && \
-  	pip install requests[security] && \
-  	pip install requests-cache && \
-  	pip install babelfish && \
-	pip install 'guessit<2' && \
-	pip install 'subliminal<2' && \
-	pip install stevedore==1.19.1 && \
-	pip install python-dateutil && \ 
-	pip install qtfaststart && \
-	pip install deluge-client && \
-	pip install gevent && \
-	git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /sickbeard_mp4_automator/ && \
-	touch /sickbeard_mp4_automator/info.log && \
-	cp /sickbeard_mp4_automator/autoProcess.ini.sample /sickbeard_mp4_automator/autoProcess.ini && \
-	chmod 777 -R /sickbeard_mp4_automator/ && \
-	ln -s /downloads /data
+apk update
+apk upgrade
 
-VOLUME /sickbeard_mp4_automator
+apk add git
+apk add ffmpeg
+
+curl https://bootstrap.pypa.io/ez_setup.py -o - | python
+easy_install pip
+
+
+pip install requests 
+pip install requests[security]
+pip install requests-cache
+pip install babelfish
+pip install 'guessit<2'
+pip install 'subliminal<2'
+pip install stevedore
+pip install python-dateutil
+pip install deluge-client
+pip install qtfaststart
+
+
+##Get MP4Automator
+[[ ! -d /mp4automator/.git ]] && (git clone git://github.com/mdhiggins/sickbeard_mp4_automator.git /mp4automator && chown -R abc:abc /mp4automator)
+
+##Use .ini if present or copy sample
+[[ ! -f /mp4automator/autoProcess.ini ]] && (cp /mp4automator/autoProcess.ini.sample /mp4automator/autoProcess.ini)
+
+# test if updates have been disabled
+[ "$ADVANCED_DISABLEUPDATES" ] && exit 0
+
+cd /mp4automator
+git pull
+chown -R abc:abc /config
+
+VOLUME /mp4automator
