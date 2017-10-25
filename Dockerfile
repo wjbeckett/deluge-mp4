@@ -1,8 +1,6 @@
 FROM linuxserver/deluge
 MAINTAINER wjbeckett
 
-VOLUME /mp4automator
-
 # Install Git
 RUN apk add --no-cache git
 
@@ -35,3 +33,5 @@ RUN chmod 775 -R /mp4automator
 #Adding Custom files
 ADD init/ /etc/cont-init.d/
 RUN chmod -v +x /etc/cont-init.d/*.sh
+
+VOLUME /mp4automator
