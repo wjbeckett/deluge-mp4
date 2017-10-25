@@ -1,9 +1,9 @@
 #!/bin/bash
 apk update
 apk upgrade
-git -C /mp4automator/ reset HEAD --hard
-git -C /mp4automator/ pull
-chmod 775 -R /scripts
+cd /mp4automator
+git pull
+chmod 775 -R /mp4automator
 pip install --upgrade PIP
 pip install --upgrade requests
 pip install --upgrade requests[security]
