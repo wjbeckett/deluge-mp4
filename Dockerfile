@@ -1,11 +1,12 @@
 FROM linuxserver/deluge
 MAINTAINER wjbeckett
 
+VOLUME /mp4automator
+
 # Install Git
 RUN apk add --no-cache git
 
 # Install MP4 Automator
-RUN git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /mp4automator
 RUN apk add --no-cache \
   py-setuptools \
   py-pip \
@@ -26,6 +27,7 @@ RUN pip install stevedore==1.19.1
 RUN pip install qtfaststart
 RUN pip install deluge-client
 RUN pip install gevent
+RUN git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /mp4automator/
 
 #Set script file permissions
 RUN chmod 775 -R /mp4automator
@@ -33,5 +35,3 @@ RUN chmod 775 -R /mp4automator
 #Adding Custom files
 ADD init/ /etc/my_init.d/
 RUN chmod -v +x /etc/my_init.d/*.sh
-
-VOLUME /mp4automator
