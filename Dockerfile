@@ -33,5 +33,5 @@ RUN git clone https://github.com/mdhiggins/sickbeard_mp4_automator.git /mp4autom
 RUN chmod 775 -R /mp4automator
 
 #Adding Custom files
-ADD init/ /etc/my_init.d/
-RUN chmod -v +x /etc/my_init.d/*.sh
+ADD init/ /etc/cont-init.d/
+RUN chmod -v +x /etc/cont-init.d/*.sh
