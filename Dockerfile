@@ -1,18 +1,12 @@
 FROM linuxserver/deluge
-MAINTAINER wjbeckett
+LABEL maintainer="wjbeckett"
 
-# Install Git
-RUN apk add --no-cache git
+# Update package repositories
+RUN apt-get update
 
 # Install MP4 Automator
-RUN apk add --no-cache \
-  py-setuptools \
-  py-pip \
-  python-dev \
-  libffi-dev \
-  gcc \
-  musl-dev \
-  openssl-dev \
+RUN apt-get install -y \
+  git \
   ffmpeg
 RUN pip install --upgrade PIP
 RUN pip install requests
@@ -21,6 +15,7 @@ RUN pip install requests-cache
 RUN pip install babelfish
 RUN pip install 'guessit<2'
 RUN pip install 'subliminal<2'
+RUN pip uninstall -y stevedore
 RUN pip install stevedore==1.19.1
 RUN pip install qtfaststart
 RUN pip install deluge-client

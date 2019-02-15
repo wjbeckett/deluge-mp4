@@ -1,7 +1,6 @@
 #!/usr/bin/with-contenv bash
 echo "updating packages"
-apk update
-apk upgrade
+apt-get update && apt-get upgrade
 echo "grabbing latest mp4automator"
 [[ ! -d /mp4automator/.git ]] && (git clone git://github.com/mdhiggins/sickbeard_mp4_automator.git /mp4automator && chown -R abc:abc /mp4automator)
 echo "setting up mp4Automator"
